@@ -15,15 +15,16 @@
 	
 	<!-- 로그인 -->
 	<select id="login" resultType="kr.co.vo.MemberVO">
-		SELECT USERID, USERPASS, USERNAME FROM UC_MEMBER
+		SELECT USERID, USERPASS, USERNAME 
+		FROM UC_MEMBER
 		WHERE USERID = #{userId}
-		AND USERPASS = #{userPass}
+		<!-- AND USERPASS = #{userPass} -->
 	</select>
 	
 	<!-- 회원정보 수정 -->
 	<update id="memberUpdate">
 		UPDATE UC_MEMBER SET
-		USERPASS = #{userPass},
+		<!-- USERPASS = #{userPass}, -->
 		USERNAME = #{userName}
 		WHERE USERID = #{userId}
 	</update>
@@ -31,7 +32,8 @@
 	<!-- 회원탈퇴 -->
 	<delete id="memberDelete">
 		DELETE FROM UC_MEMBER
-		WHERE USERID = #{userId} AND USERPASS = #{userPass}
+		WHERE USERID = #{userId} 
+		<!-- AND USERPASS = #{userPass} -->
 	</delete>
 	
 	<!-- 패스워드 체크 -->
