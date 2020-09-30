@@ -5,15 +5,15 @@
 <mapper namespace="boardMapper">
 <!-- 게시판 글 작성 -->
       <insert id="insert" parameterType="kr.co.vo.BoardVO" useGeneratedKeys="true" keyProperty="bno">
-      	<selectKey keyProperty="bno" resultType="int" order="BEFORE">
-      		SELECT NEXTVAL('uc_board_bno_seq')
+      	<selectKey keyProperty="bno" resultType="int" order="AFTER">
+      		select CURRVAL('uc_board_bno_seq')
       	</selectKey>
-	   INSERT INTO UC_BOARD(
-	   					      TITLE 
+	   INSERT INTO UC_BOARD(	BNO
+	   					      , TITLE 
 	   					      , CONTENTS 
 	   					      , WRITER  )
-	                 VALUES(
-	                 		  #{title}
+	                 VALUES(	NEXTVAL('uc_board_bno_seq')
+	                 		  , #{title}
 	                 		  , #{contents}
 	                 		  , #{writer}  )
    
@@ -28,12 +28,22 @@
   	 	FILE_SIZE
   	 	)
   	 VALUES(
-  	 	#{BNO},
+  	 	#{BNO}-1,
   	 	#{ORG_FILE_NAME},
   	 	#{STORED_FILE_NAME},
   	 	#{FILE_SIZE}
   	 	)
   </insert>
+  
+<!-- 첨부파일조회 -->
+	<select id="selectFileList" parameterType="int" resultType="hashMap">
+				SELECT 
+				FILE_NO,
+				ORG_FILE_NAME, 
+				ROUND(FILE_SIZE/1024,1) AS FILE_SIZE
+				FROM UC_FILE
+				WHERE BNO=#{BNO} AND DEL_GB='N'
+	</select>
    
 <!-- 게시판 글 목록 -->
       <select id="list" resultType="kr.co.vo.BoardVO">
