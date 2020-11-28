@@ -6,7 +6,7 @@
 <!-- 게시판 글 작성 -->
       <insert id="insert" parameterType="kr.co.vo.BoardVO" useGeneratedKeys="true" keyProperty="bno">
       	<selectKey keyProperty="bno" resultType="int" order="AFTER">
-      		select CURRVAL('uc_board_bno_seq')
+      		select NEXTVAL('uc_board_bno_seq')
       	</selectKey>
 	   INSERT INTO UC_BOARD(	BNO
 	   					      , TITLE 

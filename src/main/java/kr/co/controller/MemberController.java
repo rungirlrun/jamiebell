@@ -154,6 +154,7 @@ public class MemberController {
 	@ResponseBody
 	@RequestMapping(value = "/idChk", method = RequestMethod.POST)
 	public int idChk(MemberVO vo) throws Exception {
+		System.out.println("idChk");
 		int result = service.idChk(vo);
 		return result;
 	}
