@@ -44,7 +44,16 @@
 				FROM UC_FILE
 				WHERE BNO=#{BNO} AND DEL_GB='N'
 	</select>
-   
+	
+<!-- 첨부파일 다운 -->
+	<select id="selectFileInfo" parameterType="hashMap" resultType="hashMap">
+				SELECT 
+					STORED_FILE_NAME,
+					ORG_FILE_NAME 
+				FROM UC_FILE
+				WHERE FILE_NO = ${FILE_NO}
+	</select>
+	
 <!-- 게시판 글 목록 -->
       <select id="list" resultType="kr.co.vo.BoardVO">
 	  SELECT BNO, TITLE, WRITER, REGDTE FROM UC_BOARD

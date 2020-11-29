@@ -18,7 +18,9 @@ import kr.co.vo.BoardVO;
 
 @Component("fileUtils")
 public class FileUtils {
-	private static final String filePath = "/Users/juwonlee/Desktop";
+	private static final String filePath = "/Users/juwonlee/Desktop/";
+	
+	/* 그동안 업로드했던 파일들이 저장 안되었던 이유 Desktop 이라고만 해서; Desktop/ 이라고 해줘야지 Desktop에 저장됨 바보멍충아 */
 	
 	public List<Map<String, Object>> parseInsertFileInfo(BoardVO boardVO, MultipartHttpServletRequest mpRequest) throws Exception{
 		
