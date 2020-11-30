@@ -35,4 +35,7 @@ public interface BoardDAO {
 
 	// 첨부파일 다운로드
 	public Map<String, Object> selectFileInfo(Map<String, Object> map) throws Exception;
+	
+	// 첨부파일 업데이트
+	public void updateFile(Map<String, Object> map) throws Exception;
 }

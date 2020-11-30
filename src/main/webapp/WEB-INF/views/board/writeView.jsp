@@ -23,6 +23,7 @@
 				formObj.attr("method", "post");
 				formObj.submit();
 			});
+			fn_addFile();
 		})	
 		
 		function fn_valiChk(){
@@ -34,6 +35,16 @@
 				}
 			}
 		}
+
+		function fn_addFile(){
+			var fileIndex = 1;
+			$(".fileAdd_btn").on("click", function(){
+				$("#fileIndex").append("<div><input type='file' style='float:left;' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div>");
+			});
+			$(document).on("click", "#fileDelBtn", function(){
+				$(this).parent().remove();
+				});
+			}
 	</script>
 	<body>
 	
@@ -69,18 +80,20 @@
 								</td>
 							</tr>
 							<tr>
-								<td>
-									<input type="file" name="file">
+								<td id="fileIndex">
+									<!--  <input type="file" name="file">  -->
 								</td>
 							</tr>
 							<tr>
 								<td>						
 									<button type="submit" class="write_btn">작성</button>
+									<button class="fileAdd_btn" type="button">파일추가</button>
 								</td>
 							</tr>	
 						</c:if>		
 						<c:if test="${member.userId == null}">
 							<p>로그인 후에 작성하실 수 있습니다.</p>
+							<a href="http://localhost:8080/">로그인</a>
 						</c:if>
 						</tbody>			
 					</table>

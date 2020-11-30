@@ -71,6 +71,42 @@ public class FileUtils {
 		return list;
 	}
 	
+	public List<Map<String, Object>> parseUpdateFileInfo(BoardVO boardVO, String[] files, String[] fileNames, MultipartHttpServletRequest ucRequest) throws Exception{
+		Iterator<String> iterator = ucRequest.getFileNames();
+		MultipartFile multipartFile = null;
+		String originalFileName = null;
+		String originalFileExtension = null;
+		String storedFileName = null;
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		Map<String, Object> listMap = null;
+		int bno = boardVO.getBno();
+		while(iterator.hasNext()) {
+			multipartFile = ucRequest.getFile(iterator.next());
+			if(multipartFile.isEmpty()==false) {
+				originalFileName = multipartFile.getOriginalFilename();
+				originalFileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
+				storedFileName = getRandomString() + originalFileExtension;
+				multipartFile.transferTo(new File(filePath + storedFileName));
+				listMap = new HashMap<String,Object>();
+				listMap.put("IS_NEW", "Y");
+				listMap.put("BNO", bno);
+				listMap.put("ORG_FILE_NAME", originalFileName);
+				listMap.put("STORED_FILE_NAME", storedFileName);
+				listMap.put("FILE_SIZE", multipartFile.getSize());
+				list.add(listMap);
+			}
+		}
+		if(files != null && fileNames != null) {
+			for(int i = 0;i<fileNames.length; i++) {
+				listMap = new HashMap<String, Object>();
+				listMap.put("IS_NEW", "N");
+				listMap.put("FILE_NO", files[i]);
+				list.add(listMap);
+			}
+		}
+		return list;
+	}
+	
 	public static String getRandomString() {	// getRandomString()은 32글자의 랜덤한 문자열(숫자포함)을 만들어서 반환해주는 기능을 함.
 		return UUID.randomUUID().toString().replaceAll("-", "");
 	}
