@@ -93,10 +93,8 @@ public class BoardController {
 		@RequestMapping(value = "/updateView", method = RequestMethod.GET)
 		public String updateView(BoardVO boardVO, @ModelAttribute("scri") SearchCriteria scri, Model model) throws Exception{
 			logger.info("updateView");
-			
 			model.addAttribute("update", service.read(boardVO.getBno()));
 			model.addAttribute("scri", scri);
-			
 			List<Map<String, Object>> fileList = service.selectFileList(boardVO.getBno());
 			model.addAttribute("file", fileList);
 			
@@ -111,7 +109,6 @@ public class BoardController {
 							@RequestParam(value="fileNoDel[]") String[] files,
 							@RequestParam(value="fileNameDel[]") String[] fileNames,
 							MultipartHttpServletRequest ucRequest) throws Exception{
-			System.out.println("1. Controller 단");
 			logger.info("update");
 			service.update(boardVO, files, fileNames, ucRequest);
 			

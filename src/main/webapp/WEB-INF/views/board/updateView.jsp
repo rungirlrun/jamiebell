@@ -60,7 +60,8 @@
 		function fn_addFile(){
 			var fileIndex = 1;
 			$(".fileAdd_btn").on("click", function(){
-				$("#fileIndex").append("<div><input type='file' style='float:left;' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div>");
+				$("#fileIndex").append("<div><input type='file' style='float:left;' name='file_"+(fileIndex++)+"'>"+"</button>"+
+						"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div>");
 			});
 			$(document).on("click", "#fileDelBtn", function(){
 				$(this).parent().remove();
@@ -75,6 +76,7 @@
 			fileNameArry.push(name);
 			$("#fileNoDel").attr("value", fileNoArry);
 			$("fileNameDel").attr("value", fileNameArry);
+			
 		}
 	</script>
 	<body>
@@ -84,9 +86,9 @@
 			</header>
 			<hr />
 			 
-			<nav>
-			  홈 - 글 보기
-			</nav>
+			<div>
+				<%@include file="nav.jsp" %>
+			</div>
 			<hr />
 		<section id="container">
 			<form name="updateForm" role="form" method="post" action="/board/update" 
@@ -96,8 +98,8 @@
 				<input type="hidden" id="perPageNum" name="perPageNum" value="${scri.perPageNum}"> 
 				<input type="hidden" id="searchType" name="searchType" value="${scri.searchType}"> 
 				<input type="hidden" id="keyword" name="keyword" value="${scri.keyword}">
-				<!--  <input type="hidden" name="fileNoDel" name="fileNoDel[]" value="">
-				<input type="hidden" name="fileNameDel" name="fileNameDel[]" value=""> -->
+				<input type="hidden" id="fileNoDel" name="fileNoDel[]" value=""> 
+				<input type="hidden" id="fileNameDel" name="fileNameDel[]" value=""> 
 				<table>
 					<tbody>
 						<tr>
@@ -107,12 +109,12 @@
 						</tr>
 						<tr>
 							<td>
-								<label for="contents">내용</label><textarea id="contents" name="contents" class="chk" title="내을 입력하세요."><c:out value="${update.contents}"></c:out></textarea>
+								<label for="contents">내용</label><textarea id="contents" name="contents" class="chk" title="내용을 입력하세요."><c:out value="${update.contents}"></c:out></textarea>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<label for="writer">작성자</label><input type="text" id="writer" name="writer" value="${update.writer}" />
+								<label for="writer">작성자</label>&nbsp;&nbsp;<label id="writer" name="writer">${update.writer}</label>
 							</td>
 						</tr>
 						<tr>
@@ -124,23 +126,23 @@
 							<td id="fileIndex">
 								<c:forEach var="file" items="${file}" varStatus="var">
 								<div>
-									<input type="hidden" id="FILE_NO" name="FILE_NO_${var.index}" value="${file.FILE_NO}">
+									<input type="hidden" id="FILE_NO" name="FILE_NO_${var.index}" value="${file.file_no}">
 									<input type="hidden" id="FILE_NAME" name="FILE_NAME" value="FILE_NO_${var.index}">
 									<a href="#" id="fileName" onclick="return false;">${file.org_file_name}</a>(${file.file_size}kb)
 									<button id="fileDel" onclick="fn_del('${file.file_no}', 'FILE_NO_${var.index}');" type="button">삭제</button><br>
 								</div>
 								</c:forEach>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				<div>
-					<button type="button" class="update_btn">저장</button>
-					<button type="button" class="cancel_btn">취소</button>
-					<button type="button" class="fileAdd_btn">파일추가</button>
-				</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div>
+						<button type="button" class="update_btn">저장</button>
+						<button type="button" class="cancel_btn">취소</button>
+						<button type="button" class="fileAdd_btn">파일추가</button>
+					</div>
 				</form>
-		</section>
+			</section>
 			<hr />
 		</div>
 	</body>

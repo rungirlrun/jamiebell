@@ -42,7 +42,7 @@ public class BoardServiceImpl implements BoardService{
 		return dao.list(scri);
 	}
 	
-	// 게시물 총 갯
+	// 게시물 총 갯수
 	@Override
 	public int listCount(SearchCriteria scri) throws Exception {
 		// TODO Auto-generated method stub
@@ -68,6 +68,7 @@ public class BoardServiceImpl implements BoardService{
 		int size = list.size();
 		for(int i = 0; i<size; i++) {
 			tempMap = list.get(i);
+			System.out.println(tempMap);
 			if(tempMap.get("IS_NEW").equals("Y")) {
 				dao.insertFile(tempMap);
 			}else {
