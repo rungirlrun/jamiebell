@@ -7,7 +7,6 @@
 	http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context.xsd
 	">
-	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<!-- properties -->
 
@@ -36,11 +35,10 @@
     <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate"> 
     	<constructor-arg index="0" ref="sqlSessionFactory" /> 
     </bean>
-    
+    	
     <!-- scan -->
-    <context:component-scan base-package="kr.co.service"></context:component-scan>
-    <context:component-scan base-package="kr.co.dao"></context:component-scan>
-    <context:component-scan base-package="kr.co.vo"></context:component-scan> 
-    <context:component-scan base-package="kr.co.util"></context:component-scan> 
-    
-    </beans>
+      <!-- scan -->
+    <context:component-scan base-package="jamie.bell.service"></context:component-scan>
+    <context:component-scan base-package="jamie.bell.dao"></context:component-scan>
+    <context:component-scan base-package="jamie.bell.vo"></context:component-scan>	
+</beans>
